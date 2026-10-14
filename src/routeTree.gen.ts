@@ -12,8 +12,14 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedAllieveRouteImport } from './routes/_authenticated/allieve'
+import { Route as AuthenticatedCorsiRouteImport } from './routes/_authenticated/corsi'
+import { Route as AuthenticatedEconomicoRouteImport } from './routes/_authenticated/economico'
+import { Route as AuthenticatedImpostazioniRouteImport } from './routes/_authenticated/impostazioni'
+import { Route as AuthenticatedInsegnantiRouteImport } from './routes/_authenticated/insegnanti'
 import { Route as AuthenticatedLezioneRouteImport } from './routes/_authenticated/lezione'
 import { Route as AuthenticatedOggiRouteImport } from './routes/_authenticated/oggi'
+import { Route as AuthenticatedRegistroRouteImport } from './routes/_authenticated/registro'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -29,6 +35,32 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAllieveRoute = AuthenticatedAllieveRouteImport.update({
+  id: '/allieve',
+  path: '/allieve',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCorsiRoute = AuthenticatedCorsiRouteImport.update({
+  id: '/corsi',
+  path: '/corsi',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedEconomicoRoute = AuthenticatedEconomicoRouteImport.update({
+  id: '/economico',
+  path: '/economico',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedImpostazioniRoute =
+  AuthenticatedImpostazioniRouteImport.update({
+    id: '/impostazioni',
+    path: '/impostazioni',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedInsegnantiRoute = AuthenticatedInsegnantiRouteImport.update({
+  id: '/insegnanti',
+  path: '/insegnanti',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedLezioneRoute = AuthenticatedLezioneRouteImport.update({
   id: '/lezione',
   path: '/lezione',
@@ -39,39 +71,88 @@ const AuthenticatedOggiRoute = AuthenticatedOggiRouteImport.update({
   path: '/oggi',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedRegistroRoute = AuthenticatedRegistroRouteImport.update({
+  id: '/registro',
+  path: '/registro',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/allieve': typeof AuthenticatedAllieveRoute
+  '/corsi': typeof AuthenticatedCorsiRoute
+  '/economico': typeof AuthenticatedEconomicoRoute
+  '/impostazioni': typeof AuthenticatedImpostazioniRoute
+  '/insegnanti': typeof AuthenticatedInsegnantiRoute
   '/lezione': typeof AuthenticatedLezioneRoute
   '/oggi': typeof AuthenticatedOggiRoute
+  '/registro': typeof AuthenticatedRegistroRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/allieve': typeof AuthenticatedAllieveRoute
+  '/corsi': typeof AuthenticatedCorsiRoute
+  '/economico': typeof AuthenticatedEconomicoRoute
+  '/impostazioni': typeof AuthenticatedImpostazioniRoute
+  '/insegnanti': typeof AuthenticatedInsegnantiRoute
   '/lezione': typeof AuthenticatedLezioneRoute
   '/oggi': typeof AuthenticatedOggiRoute
+  '/registro': typeof AuthenticatedRegistroRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/_authenticated/allieve': typeof AuthenticatedAllieveRoute
+  '/_authenticated/corsi': typeof AuthenticatedCorsiRoute
+  '/_authenticated/economico': typeof AuthenticatedEconomicoRoute
+  '/_authenticated/impostazioni': typeof AuthenticatedImpostazioniRoute
+  '/_authenticated/insegnanti': typeof AuthenticatedInsegnantiRoute
   '/_authenticated/lezione': typeof AuthenticatedLezioneRoute
   '/_authenticated/oggi': typeof AuthenticatedOggiRoute
+  '/_authenticated/registro': typeof AuthenticatedRegistroRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/lezione' | '/oggi'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/allieve'
+    | '/corsi'
+    | '/economico'
+    | '/impostazioni'
+    | '/insegnanti'
+    | '/lezione'
+    | '/oggi'
+    | '/registro'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/lezione' | '/oggi'
+  to:
+    | '/'
+    | '/auth'
+    | '/allieve'
+    | '/corsi'
+    | '/economico'
+    | '/impostazioni'
+    | '/insegnanti'
+    | '/lezione'
+    | '/oggi'
+    | '/registro'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/_authenticated/allieve'
+    | '/_authenticated/corsi'
+    | '/_authenticated/economico'
+    | '/_authenticated/impostazioni'
+    | '/_authenticated/insegnanti'
     | '/_authenticated/lezione'
     | '/_authenticated/oggi'
+    | '/_authenticated/registro'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -103,6 +184,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/allieve': {
+      id: '/_authenticated/allieve'
+      path: '/allieve'
+      fullPath: '/allieve'
+      preLoaderRoute: typeof AuthenticatedAllieveRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/corsi': {
+      id: '/_authenticated/corsi'
+      path: '/corsi'
+      fullPath: '/corsi'
+      preLoaderRoute: typeof AuthenticatedCorsiRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/economico': {
+      id: '/_authenticated/economico'
+      path: '/economico'
+      fullPath: '/economico'
+      preLoaderRoute: typeof AuthenticatedEconomicoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/impostazioni': {
+      id: '/_authenticated/impostazioni'
+      path: '/impostazioni'
+      fullPath: '/impostazioni'
+      preLoaderRoute: typeof AuthenticatedImpostazioniRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/insegnanti': {
+      id: '/_authenticated/insegnanti'
+      path: '/insegnanti'
+      fullPath: '/insegnanti'
+      preLoaderRoute: typeof AuthenticatedInsegnantiRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/lezione': {
       id: '/_authenticated/lezione'
       path: '/lezione'
@@ -117,17 +233,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedOggiRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/registro': {
+      id: '/_authenticated/registro'
+      path: '/registro'
+      fullPath: '/registro'
+      preLoaderRoute: typeof AuthenticatedRegistroRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAllieveRoute: typeof AuthenticatedAllieveRoute
+  AuthenticatedCorsiRoute: typeof AuthenticatedCorsiRoute
+  AuthenticatedEconomicoRoute: typeof AuthenticatedEconomicoRoute
+  AuthenticatedImpostazioniRoute: typeof AuthenticatedImpostazioniRoute
+  AuthenticatedInsegnantiRoute: typeof AuthenticatedInsegnantiRoute
   AuthenticatedLezioneRoute: typeof AuthenticatedLezioneRoute
   AuthenticatedOggiRoute: typeof AuthenticatedOggiRoute
+  AuthenticatedRegistroRoute: typeof AuthenticatedRegistroRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAllieveRoute: AuthenticatedAllieveRoute,
+  AuthenticatedCorsiRoute: AuthenticatedCorsiRoute,
+  AuthenticatedEconomicoRoute: AuthenticatedEconomicoRoute,
+  AuthenticatedImpostazioniRoute: AuthenticatedImpostazioniRoute,
+  AuthenticatedInsegnantiRoute: AuthenticatedInsegnantiRoute,
   AuthenticatedLezioneRoute: AuthenticatedLezioneRoute,
   AuthenticatedOggiRoute: AuthenticatedOggiRoute,
+  AuthenticatedRegistroRoute: AuthenticatedRegistroRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
