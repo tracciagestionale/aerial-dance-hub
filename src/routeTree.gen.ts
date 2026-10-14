@@ -10,33 +10,155 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedAllieveRouteImport } from './routes/_authenticated/allieve'
+import { Route as AuthenticatedCorsiRouteImport } from './routes/_authenticated/corsi'
+import { Route as AuthenticatedEconomicoRouteImport } from './routes/_authenticated/economico'
+import { Route as AuthenticatedImpostazioniRouteImport } from './routes/_authenticated/impostazioni'
+import { Route as AuthenticatedInsegnantiRouteImport } from './routes/_authenticated/insegnanti'
+import { Route as AuthenticatedLezioneRouteImport } from './routes/_authenticated/lezione'
+import { Route as AuthenticatedOggiRouteImport } from './routes/_authenticated/oggi'
+import { Route as AuthenticatedRegistroRouteImport } from './routes/_authenticated/registro'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAllieveRoute = AuthenticatedAllieveRouteImport.update({
+  id: '/allieve',
+  path: '/allieve',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCorsiRoute = AuthenticatedCorsiRouteImport.update({
+  id: '/corsi',
+  path: '/corsi',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedEconomicoRoute = AuthenticatedEconomicoRouteImport.update({
+  id: '/economico',
+  path: '/economico',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedImpostazioniRoute =
+  AuthenticatedImpostazioniRouteImport.update({
+    id: '/impostazioni',
+    path: '/impostazioni',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedInsegnantiRoute = AuthenticatedInsegnantiRouteImport.update({
+  id: '/insegnanti',
+  path: '/insegnanti',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedLezioneRoute = AuthenticatedLezioneRouteImport.update({
+  id: '/lezione',
+  path: '/lezione',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedOggiRoute = AuthenticatedOggiRouteImport.update({
+  id: '/oggi',
+  path: '/oggi',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedRegistroRoute = AuthenticatedRegistroRouteImport.update({
+  id: '/registro',
+  path: '/registro',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/allieve': typeof AuthenticatedAllieveRoute
+  '/corsi': typeof AuthenticatedCorsiRoute
+  '/economico': typeof AuthenticatedEconomicoRoute
+  '/impostazioni': typeof AuthenticatedImpostazioniRoute
+  '/insegnanti': typeof AuthenticatedInsegnantiRoute
+  '/lezione': typeof AuthenticatedLezioneRoute
+  '/oggi': typeof AuthenticatedOggiRoute
+  '/registro': typeof AuthenticatedRegistroRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/allieve': typeof AuthenticatedAllieveRoute
+  '/corsi': typeof AuthenticatedCorsiRoute
+  '/economico': typeof AuthenticatedEconomicoRoute
+  '/impostazioni': typeof AuthenticatedImpostazioniRoute
+  '/insegnanti': typeof AuthenticatedInsegnantiRoute
+  '/lezione': typeof AuthenticatedLezioneRoute
+  '/oggi': typeof AuthenticatedOggiRoute
+  '/registro': typeof AuthenticatedRegistroRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/_authenticated/allieve': typeof AuthenticatedAllieveRoute
+  '/_authenticated/corsi': typeof AuthenticatedCorsiRoute
+  '/_authenticated/economico': typeof AuthenticatedEconomicoRoute
+  '/_authenticated/impostazioni': typeof AuthenticatedImpostazioniRoute
+  '/_authenticated/insegnanti': typeof AuthenticatedInsegnantiRoute
+  '/_authenticated/lezione': typeof AuthenticatedLezioneRoute
+  '/_authenticated/oggi': typeof AuthenticatedOggiRoute
+  '/_authenticated/registro': typeof AuthenticatedRegistroRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/allieve'
+    | '/corsi'
+    | '/economico'
+    | '/impostazioni'
+    | '/insegnanti'
+    | '/lezione'
+    | '/oggi'
+    | '/registro'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/allieve'
+    | '/corsi'
+    | '/economico'
+    | '/impostazioni'
+    | '/insegnanti'
+    | '/lezione'
+    | '/oggi'
+    | '/registro'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/_authenticated/allieve'
+    | '/_authenticated/corsi'
+    | '/_authenticated/economico'
+    | '/_authenticated/impostazioni'
+    | '/_authenticated/insegnanti'
+    | '/_authenticated/lezione'
+    | '/_authenticated/oggi'
+    | '/_authenticated/registro'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +170,108 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/allieve': {
+      id: '/_authenticated/allieve'
+      path: '/allieve'
+      fullPath: '/allieve'
+      preLoaderRoute: typeof AuthenticatedAllieveRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/corsi': {
+      id: '/_authenticated/corsi'
+      path: '/corsi'
+      fullPath: '/corsi'
+      preLoaderRoute: typeof AuthenticatedCorsiRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/economico': {
+      id: '/_authenticated/economico'
+      path: '/economico'
+      fullPath: '/economico'
+      preLoaderRoute: typeof AuthenticatedEconomicoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/impostazioni': {
+      id: '/_authenticated/impostazioni'
+      path: '/impostazioni'
+      fullPath: '/impostazioni'
+      preLoaderRoute: typeof AuthenticatedImpostazioniRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/insegnanti': {
+      id: '/_authenticated/insegnanti'
+      path: '/insegnanti'
+      fullPath: '/insegnanti'
+      preLoaderRoute: typeof AuthenticatedInsegnantiRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/lezione': {
+      id: '/_authenticated/lezione'
+      path: '/lezione'
+      fullPath: '/lezione'
+      preLoaderRoute: typeof AuthenticatedLezioneRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/oggi': {
+      id: '/_authenticated/oggi'
+      path: '/oggi'
+      fullPath: '/oggi'
+      preLoaderRoute: typeof AuthenticatedOggiRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/registro': {
+      id: '/_authenticated/registro'
+      path: '/registro'
+      fullPath: '/registro'
+      preLoaderRoute: typeof AuthenticatedRegistroRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAllieveRoute: typeof AuthenticatedAllieveRoute
+  AuthenticatedCorsiRoute: typeof AuthenticatedCorsiRoute
+  AuthenticatedEconomicoRoute: typeof AuthenticatedEconomicoRoute
+  AuthenticatedImpostazioniRoute: typeof AuthenticatedImpostazioniRoute
+  AuthenticatedInsegnantiRoute: typeof AuthenticatedInsegnantiRoute
+  AuthenticatedLezioneRoute: typeof AuthenticatedLezioneRoute
+  AuthenticatedOggiRoute: typeof AuthenticatedOggiRoute
+  AuthenticatedRegistroRoute: typeof AuthenticatedRegistroRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAllieveRoute: AuthenticatedAllieveRoute,
+  AuthenticatedCorsiRoute: AuthenticatedCorsiRoute,
+  AuthenticatedEconomicoRoute: AuthenticatedEconomicoRoute,
+  AuthenticatedImpostazioniRoute: AuthenticatedImpostazioniRoute,
+  AuthenticatedInsegnantiRoute: AuthenticatedInsegnantiRoute,
+  AuthenticatedLezioneRoute: AuthenticatedLezioneRoute,
+  AuthenticatedOggiRoute: AuthenticatedOggiRoute,
+  AuthenticatedRegistroRoute: AuthenticatedRegistroRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
