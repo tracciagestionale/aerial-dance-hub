@@ -55,7 +55,7 @@ function Oggi() {
   useEffect(() => {
     if (me && !me.isOwner && todaySlots.length === 1 && mySlots.length > 0 && sessionStorage.getItem("auto-open") !== today) {
       sessionStorage.setItem("auto-open", today);
-      const s = todaySlots[0];
+      const s = todaySlots[0]!;
       navigate({ to: "/lezione", search: { course: s.course_id, date: today, time: shortTime(s.start_time) } });
     }
   }, [me, todaySlots, mySlots.length, today, navigate]);
