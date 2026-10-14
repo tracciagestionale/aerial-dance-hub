@@ -9,12 +9,12 @@ import { PageHeader, SectionCard, DemoBadge } from "@/components/app/page";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-type Search = { course?: string; nuova?: boolean };
+type Search = { course?: string | undefined; nuova?: boolean | undefined };
 
 export const Route = createFileRoute("/_authenticated/allieve")({
   validateSearch: (s: Record<string, unknown>): Search => ({
-    course: typeof s.course === "string" ? s.course : undefined,
-    nuova: s.nuova === true || s.nuova === "true" ? true : undefined,
+    course: typeof s["course"] === "string" ? s["course"] : undefined,
+    nuova: s["nuova"] === true || s["nuova"] === "true" ? true : undefined,
   }),
   head: () => ({ meta: [{ title: "Allieve — Materi_ali" }] }),
   component: Allieve,
@@ -40,20 +40,20 @@ function Allieve() {
       `${s.first_name} ${s.last_name} ${s.code}`.toLowerCase().includes(q.toLowerCase()),
   );
 
-  async function add(force = false) {
-    if (!form.first.trim() || !form.last.trim() || !form.course) return toast.error("Nome, cognome e corso sono obbligatori");
+  async function add(force = false): Promise<void> {
+    if (!form.first.trim() || !form.last.trim() || !form.course) { toast.error("Nome, cognome e corso sono obbligatori"); return; }
     if (!force) {
-      const { data } = await supabase.rpc("possible_duplicates", { _first: form.first, _last: form.last, _birth: form.birth || undefined });
-      if (data && data.length) return setDups(data.map((d) => `${d.first_name} ${d.last_name} (${d.code})`));
+      const { data } = await supabase.rpc("possible_duplicates", { _first: form.first, _last: form.last, ...(form.birth ? { _birth: form.birth } : {}) });
+      if (data && data.length) { setDups(data.map((d) => `${d.first_name} ${d.last_name} (${d.code})`)); return; }
     }
     const { data: st, error } = await supabase
       .from("students")
-      .insert({ first_name: form.first.trim(), last_name: form.last.trim(), birth_date: form.birth || null, parent1_phone: form.phone || null, created_by: me?.userId })
+      .insert({ first_name: form.first.trim(), last_name: form.last.trim(), birth_date: form.birth || null, parent1_phone: form.phone || null, created_by: me?.userId ?? null })
       .select("id")
       .single();
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     const { error: e2 } = await supabase.from("enrollments").insert({ student_id: st.id, course_id: form.course });
-    if (e2) return toast.error(e2.message);
+    if (e2) { toast.error(e2.message); return; }
     toast.success("Allieva inserita");
     setOpen(false);
     setDups(null);
@@ -63,7 +63,7 @@ function Allieve() {
 
   async function toggleActive(id: string, active: boolean) {
     const { error } = await supabase.from("students").update({ active: !active }).eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     qc.invalidateQueries({ queryKey: ["students"] });
   }
 

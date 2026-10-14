@@ -12,13 +12,13 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 
-type Search = { course: string; date: string; time?: string };
+type Search = { course: string; date: string; time?: string | undefined };
 
 export const Route = createFileRoute("/_authenticated/lezione")({
   validateSearch: (s: Record<string, unknown>): Search => ({
-    course: String(s.course ?? ""),
-    date: typeof s.date === "string" ? s.date : todayRome(),
-    time: typeof s.time === "string" ? s.time : undefined,
+    course: String(s["course"] ?? ""),
+    date: typeof s["date"] === "string" ? s["date"] : todayRome(),
+    time: typeof s["time"] === "string" ? s["time"] : undefined,
   }),
   head: () => ({ meta: [{ title: "Registro lezione — Materi_ali" }] }),
   component: Lezione,
