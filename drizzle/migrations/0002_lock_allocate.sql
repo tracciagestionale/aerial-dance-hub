@@ -1,0 +1,1 @@
+revoke execute on function public.allocate_payment(uuid) from public, authenticated;
