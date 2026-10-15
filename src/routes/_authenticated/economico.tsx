@@ -121,12 +121,12 @@ function Summary({ month }: { month: string }) {
 
   async function addTransfer() {
     const { error } = await supabase.from("gym_transfers").insert({ ...tr, amount: Number(tr.amount) });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Trasferimento registrato"); setTr({ ...tr, amount: "", reference: "" }); inv();
   }
   async function addExpense() {
     const { error } = await supabase.from("expenses").insert({ ...exp, amount: Number(exp.amount) });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Spesa registrata"); setExp({ ...exp, amount: "", description: "" }); inv();
   }
 
@@ -250,9 +250,9 @@ function PaymentForm({ teacherMode, onDone }: { teacherMode?: boolean; onDone: (
   const [saving, setSaving] = useState(false);
   async function save() {
     setSaving(true);
-    const { error } = await supabase.from("payments").insert({ ...f, student_id: f.student_id || null, amount: Number(f.amount.replace(",", ".")), recorded_by: me?.userId });
+    const { error } = await supabase.from("payments").insert({ ...f, student_id: f.student_id || null, amount: Number(f.amount.replace(",", ".")), recorded_by: me?.userId ?? null });
     setSaving(false);
-    if (error) return toast.error("Non salvato: " + error.message);
+    if (error) { toast.error("Non salvato: " + error.message); return; }
     toast.success("Pagamento salvato e abbinato alle quote aperte"); setF(empty); onDone();
   }
   const active = students.filter((s) => s.active);
@@ -293,12 +293,12 @@ function Payments({ month }: { month: string }) {
   const [q, setQ] = useState("");
   const realloc = async (id: string) => {
     const { error } = await supabase.rpc("reallocate_student", { _student: id });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Pagamenti riabbinati"); inv();
   };
   const assign = async (paymentId: string, studentId: string) => {
     const { error } = await supabase.from("payments").update({ student_id: studentId }).eq("id", paymentId);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     await realloc(studentId);
   };
   const { data: students = [] } = useQuery(studentsQuery);
@@ -374,19 +374,19 @@ function Compensi({ month }: { month: string }) {
 
   async function payout(teacherId: string, amount: number) {
     const { error } = await supabase.from("teacher_payouts").insert({ teacher_id: teacherId, month: monthStart(month), amount });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Pagamento compenso registrato"); inv();
   }
   async function newRate(teacherId: string, rate: number, from: string) {
     const prev = rates.find((r) => r.teacher_id === teacherId && !r.valid_to);
     if (prev) {
-      if (from <= prev.valid_from) return toast.error("La nuova tariffa deve iniziare dopo quella attuale");
+      if (from <= prev.valid_from) { toast.error("La nuova tariffa deve iniziare dopo quella attuale"); return; }
       const d = new Date(from + "T00:00:00Z"); d.setUTCDate(d.getUTCDate() - 1);
       const { error } = await supabase.from("teacher_rates").update({ valid_to: d.toISOString().slice(0, 10) }).eq("id", prev.id);
-      if (error) return toast.error(error.message);
+      if (error) { toast.error(error.message); return; }
     }
     const { error } = await supabase.from("teacher_rates").insert({ teacher_id: teacherId, hourly_rate: rate, valid_from: from });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Tariffa aggiornata: i compensi già registrati non cambiano"); inv();
   }
 
@@ -416,7 +416,7 @@ function Compensi({ month }: { month: string }) {
   );
 }
 
-function PayoutAndRate({ current, residual, onPay, onRate }: { current?: number; residual: number; onPay: (a: number) => void; onRate: (r: number, from: string) => void }) {
+function PayoutAndRate({ current, residual, onPay, onRate }: { current?: number | undefined; residual: number; onPay: (a: number) => void; onRate: (r: number, from: string) => void }) {
   const [amt, setAmt] = useState(residual > 0 ? String(residual) : "");
   const [rate, setRate] = useState("");
   const [from, setFrom] = useState(todayRome());
@@ -460,22 +460,22 @@ function Rules({ month }: { month: string }) {
       await supabase.from("fee_rules").update({ valid_to: d.toISOString().slice(0, 10) }).eq("id", prev.id);
     }
     const { error } = await supabase.from("fee_rules").insert({ ...rule, amount: Number(rule.amount) });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Regola salvata. Le quote già generate non cambiano."); inv();
   }
   async function addInd() {
     const { error } = await supabase.from("student_fees").insert({ ...ind, amount: Number(ind.amount), valid_to: ind.valid_to || null, note: ind.note || null });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Quota individuale salvata"); inv();
   }
   async function addOv() {
     const { error } = await supabase.from("fee_overrides").upsert({ ...ov, month: monthStart(month), amount: Number(ov.amount), note: ov.note || null }, { onConflict: "student_id,month,kind" });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Modifica del mese salvata (vale per le quote non ancora generate)"); inv();
   }
   async function toggleExclude(id: string, v: boolean) {
     const { error } = await supabase.from("students").update({ exclude_from_split: v }).eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     qc.invalidateQueries({ queryKey: ["students"] }); inv();
   }
   const studentSelect = (v: string, on: (v: string) => void) => (
