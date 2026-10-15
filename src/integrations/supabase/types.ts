@@ -50,6 +50,47 @@ export type Database = {
           },
         ]
       }
+      charges: {
+        Row: {
+          amount: number
+          created_at: string
+          due_date: string
+          id: string
+          kind: string
+          month: string
+          source: string
+          student_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          due_date: string
+          id?: string
+          kind: string
+          month: string
+          source: string
+          student_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          due_date?: string
+          id?: string
+          kind?: string
+          month?: string
+          source?: string
+          student_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "charges_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       course_schedules: {
         Row: {
           active: boolean
@@ -217,11 +258,125 @@ export type Database = {
           },
         ]
       }
+      expenses: {
+        Row: {
+          amount: number
+          created_at: string
+          description: string
+          id: string
+          spent_on: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          description: string
+          id?: string
+          spent_on?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          description?: string
+          id?: string
+          spent_on?: string
+        }
+        Relationships: []
+      }
+      fee_overrides: {
+        Row: {
+          amount: number
+          id: string
+          kind: string
+          month: string
+          note: string | null
+          student_id: string
+        }
+        Insert: {
+          amount: number
+          id?: string
+          kind: string
+          month: string
+          note?: string | null
+          student_id: string
+        }
+        Update: {
+          amount?: number
+          id?: string
+          kind?: string
+          month?: string
+          note?: string | null
+          student_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fee_overrides_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fee_rules: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          kind: string
+          valid_from: string
+          valid_to: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          kind: string
+          valid_from: string
+          valid_to?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          kind?: string
+          valid_from?: string
+          valid_to?: string | null
+        }
+        Relationships: []
+      }
+      gym_transfers: {
+        Row: {
+          amount: number
+          created_at: string
+          direction: string
+          id: string
+          reference: string | null
+          transfer_date: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          direction?: string
+          id?: string
+          reference?: string | null
+          transfer_date?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          direction?: string
+          id?: string
+          reference?: string | null
+          transfer_date?: string
+        }
+        Relationships: []
+      }
       lesson_staff: {
         Row: {
           hours: number
           id: string
           lesson_id: string
+          rate_applied: number | null
           role: string
           teacher_id: string
         }
@@ -229,6 +384,7 @@ export type Database = {
           hours: number
           id?: string
           lesson_id: string
+          rate_applied?: number | null
           role: string
           teacher_id: string
         }
@@ -236,6 +392,7 @@ export type Database = {
           hours?: number
           id?: string
           lesson_id?: string
+          rate_applied?: number | null
           role?: string
           teacher_id?: string
         }
@@ -323,6 +480,130 @@ export type Database = {
           },
         ]
       }
+      payment_allocations: {
+        Row: {
+          amount: number
+          charge_id: string
+          id: string
+          payment_id: string
+        }
+        Insert: {
+          amount: number
+          charge_id: string
+          id?: string
+          payment_id: string
+        }
+        Update: {
+          amount?: number
+          charge_id?: string
+          id?: string
+          payment_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payment_allocations_charge_id_fkey"
+            columns: ["charge_id"]
+            isOneToOne: false
+            referencedRelation: "charges"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payment_allocations_payment_id_fkey"
+            columns: ["payment_id"]
+            isOneToOne: false
+            referencedRelation: "payments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payments: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          method: string
+          notes: string | null
+          paid_on: string
+          received_by: string
+          recorded_by: string | null
+          reference: string | null
+          student_id: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          method?: string
+          notes?: string | null
+          paid_on?: string
+          received_by?: string
+          recorded_by?: string | null
+          reference?: string | null
+          student_id?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          method?: string
+          notes?: string | null
+          paid_on?: string
+          received_by?: string
+          recorded_by?: string | null
+          reference?: string | null
+          student_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      student_fees: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          kind: string
+          note: string | null
+          student_id: string
+          valid_from: string
+          valid_to: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          kind: string
+          note?: string | null
+          student_id: string
+          valid_from: string
+          valid_to?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          kind?: string
+          note?: string | null
+          student_id?: string
+          valid_from?: string
+          valid_to?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_fees_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       students: {
         Row: {
           active: boolean
@@ -332,6 +613,7 @@ export type Database = {
           created_at: string
           created_by: string | null
           email: string | null
+          exclude_from_split: boolean
           first_name: string
           id: string
           is_demo: boolean
@@ -351,6 +633,7 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           email?: string | null
+          exclude_from_split?: boolean
           first_name: string
           id?: string
           is_demo?: boolean
@@ -370,6 +653,7 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           email?: string | null
+          exclude_from_split?: boolean
           first_name?: string
           id?: string
           is_demo?: boolean
@@ -387,6 +671,44 @@ export type Database = {
             columns: ["merged_into"]
             isOneToOne: false
             referencedRelation: "students"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      teacher_payouts: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          month: string
+          notes: string | null
+          paid_on: string
+          teacher_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          month: string
+          notes?: string | null
+          paid_on?: string
+          teacher_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          month?: string
+          notes?: string | null
+          paid_on?: string
+          teacher_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "teacher_payouts_teacher_id_fkey"
+            columns: ["teacher_id"]
+            isOneToOne: false
+            referencedRelation: "teachers"
             referencedColumns: ["id"]
           },
         ]
@@ -488,8 +810,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      allocate_payment: { Args: { _payment: string }; Returns: undefined }
       can_access_course: { Args: { _course_id: string }; Returns: boolean }
       can_access_student: { Args: { _student_id: string }; Returns: boolean }
+      fee_amount: {
+        Args: { _kind: string; _month: string; _student: string }
+        Returns: Record<string, unknown>
+      }
+      generate_charges: { Args: { _month: string }; Returns: number }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -514,6 +842,7 @@ export type Database = {
           created_at: string
           created_by: string | null
           email: string | null
+          exclude_from_split: boolean
           first_name: string
           id: string
           is_demo: boolean
@@ -532,6 +861,8 @@ export type Database = {
           isSetofReturn: true
         }
       }
+      rate_for: { Args: { _date: string; _teacher: string }; Returns: number }
+      reallocate_student: { Args: { _student: string }; Returns: undefined }
       save_lesson: { Args: { payload: Json }; Returns: string }
     }
     Enums: {

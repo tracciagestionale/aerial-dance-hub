@@ -8,6 +8,20 @@
       "when": 1792004183430,
       "tag": "0000_migration",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792051049353,
+      "tag": "0001_economico",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792051061721,
+      "tag": "0002_lock_allocate",
+      "breakpoints": true
     }
   ]
 }
