@@ -21,7 +21,7 @@ const NAV: NavItem[] = [
   { to: "/corsi", label: "Corsi", icon: BookOpen, tone: "text-people", owner: true },
   { to: "/registro", label: "Presenze", icon: CalendarCheck, tone: "text-attend" },
   { to: "/insegnanti", label: "Insegnanti", icon: GraduationCap, tone: "text-settings", owner: true },
-  { to: "/economico", label: "Economico", icon: Wallet, tone: "text-money", owner: true },
+  { to: "/economico", label: "Economico", icon: Wallet, tone: "text-money" },
   { to: "/impostazioni", label: "Impostazioni", icon: Settings, tone: "text-settings", owner: true },
 ];
 
@@ -30,7 +30,7 @@ function Shell() {
   const qc = useQueryClient();
   const navigate = useNavigate();
   const items = NAV.filter((n) => !n.owner || me?.isOwner).map((n) =>
-    n.to === "/oggi" && !me?.isOwner ? { ...n, label: "Oggi" } : n,
+    !me?.isOwner && n.to === "/oggi" ? { ...n, label: "Oggi" } : !me?.isOwner && n.to === "/economico" ? { ...n, label: "Incassi" } : n,
   );
   const mobileItems = items.filter((n) => ["/oggi", "/allieve", "/registro", "/economico", "/corsi"].includes(n.to)).slice(0, 5);
 
