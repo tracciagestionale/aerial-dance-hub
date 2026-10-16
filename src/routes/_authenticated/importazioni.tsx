@@ -98,11 +98,11 @@ function ImportWizard() {
         rows.push(row);
       }
       if (kind === 'payments') {
-        const dates = rows.filter(r => !r.error).map(r => String(r.payload.paid_on)).sort();
+        const dates = rows.filter(r => !r.error).map(r => String(r.payload['paid_on'])).sort();
         if (dates[0]) {
           const { data, error: err } = await supabase.from('payments').select('paid_on, amount, reference, import_key').gte('paid_on', dates[0]).lte('paid_on', dates[dates.length - 1] ?? dates[0]);
           if (err) throw err;
-          for (const r of rows) if (data.some(p => p.import_key === r.payload.import_key || (p.paid_on === r.payload.paid_on && Number(p.amount) === r.payload.amount && normalize(p.reference ?? '') === normalize(String(r.payload.reference))))) { r.duplicate = true; r.selected = false; }
+          for (const r of rows) if (data.some(p => p.import_key === r.payload['import_key'] || (p.paid_on === r.payload['paid_on'] && Number(p.amount) === r.payload['amount'] && normalize(p.reference ?? '') === normalize(String(r.payload['reference']))))) { r.duplicate = true; r.selected = false; }
         }
       }
       setPreview(rows);

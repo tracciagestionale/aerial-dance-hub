@@ -1,12 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHeader, SectionCard } from "@/components/app/page";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/_authenticated/impostazioni")({
   head: () => ({ meta: [{ title: "Impostazioni — Materi_ali" }] }),
   component: () => (
     <div>
       <PageHeader title="Impostazioni" />
-      <SectionCard><p className="text-sm text-muted-foreground">Importazioni ed esportazioni arrivano nella fase 3.</p></SectionCard>
+      <Button asChild><Link to="/importazioni">Importazioni CSV e Google Sheets</Link></Button>
     </div>
   ),
 });
