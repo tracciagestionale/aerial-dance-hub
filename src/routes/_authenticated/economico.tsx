@@ -11,9 +11,10 @@ import { useMe } from "@/lib/session";
 import { studentsQuery, teachersQuery } from "@/lib/data";
 import { euro, formatDateIt, todayRome } from "@/lib/dates";
 import { computeSplit, monthEnd, monthStart, round } from "@/lib/finance";
+import { pageMeta } from "@/lib/metadata";
 
 export const Route = createFileRoute("/_authenticated/economico")({
-  head: () => ({ meta: [{ title: "Economico — Materi_ali" }, { name: "description", content: "Quote, pagamenti, compensi e ripartizione con la palestra." }] }),
+  head: () => pageMeta("Economico", "Quote, pagamenti, compensi e ripartizione con la palestra Materi_ali."),
   component: Economico,
 });
 
