@@ -15,6 +15,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedAllieveRouteImport } from './routes/_authenticated/allieve'
 import { Route as AuthenticatedCorsiRouteImport } from './routes/_authenticated/corsi'
 import { Route as AuthenticatedEconomicoRouteImport } from './routes/_authenticated/economico'
+import { Route as AuthenticatedImportazioniRouteImport } from './routes/_authenticated/importazioni'
 import { Route as AuthenticatedImpostazioniRouteImport } from './routes/_authenticated/impostazioni'
 import { Route as AuthenticatedInsegnantiRouteImport } from './routes/_authenticated/insegnanti'
 import { Route as AuthenticatedLezioneRouteImport } from './routes/_authenticated/lezione'
@@ -50,6 +51,12 @@ const AuthenticatedEconomicoRoute = AuthenticatedEconomicoRouteImport.update({
   path: '/economico',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedImportazioniRoute =
+  AuthenticatedImportazioniRouteImport.update({
+    id: '/importazioni',
+    path: '/importazioni',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedImpostazioniRoute =
   AuthenticatedImpostazioniRouteImport.update({
     id: '/impostazioni',
@@ -83,6 +90,7 @@ export interface FileRoutesByFullPath {
   '/allieve': typeof AuthenticatedAllieveRoute
   '/corsi': typeof AuthenticatedCorsiRoute
   '/economico': typeof AuthenticatedEconomicoRoute
+  '/importazioni': typeof AuthenticatedImportazioniRoute
   '/impostazioni': typeof AuthenticatedImpostazioniRoute
   '/insegnanti': typeof AuthenticatedInsegnantiRoute
   '/lezione': typeof AuthenticatedLezioneRoute
@@ -95,6 +103,7 @@ export interface FileRoutesByTo {
   '/allieve': typeof AuthenticatedAllieveRoute
   '/corsi': typeof AuthenticatedCorsiRoute
   '/economico': typeof AuthenticatedEconomicoRoute
+  '/importazioni': typeof AuthenticatedImportazioniRoute
   '/impostazioni': typeof AuthenticatedImpostazioniRoute
   '/insegnanti': typeof AuthenticatedInsegnantiRoute
   '/lezione': typeof AuthenticatedLezioneRoute
@@ -109,6 +118,7 @@ export interface FileRoutesById {
   '/_authenticated/allieve': typeof AuthenticatedAllieveRoute
   '/_authenticated/corsi': typeof AuthenticatedCorsiRoute
   '/_authenticated/economico': typeof AuthenticatedEconomicoRoute
+  '/_authenticated/importazioni': typeof AuthenticatedImportazioniRoute
   '/_authenticated/impostazioni': typeof AuthenticatedImpostazioniRoute
   '/_authenticated/insegnanti': typeof AuthenticatedInsegnantiRoute
   '/_authenticated/lezione': typeof AuthenticatedLezioneRoute
@@ -123,6 +133,7 @@ export interface FileRouteTypes {
     | '/allieve'
     | '/corsi'
     | '/economico'
+    | '/importazioni'
     | '/impostazioni'
     | '/insegnanti'
     | '/lezione'
@@ -135,6 +146,7 @@ export interface FileRouteTypes {
     | '/allieve'
     | '/corsi'
     | '/economico'
+    | '/importazioni'
     | '/impostazioni'
     | '/insegnanti'
     | '/lezione'
@@ -148,6 +160,7 @@ export interface FileRouteTypes {
     | '/_authenticated/allieve'
     | '/_authenticated/corsi'
     | '/_authenticated/economico'
+    | '/_authenticated/importazioni'
     | '/_authenticated/impostazioni'
     | '/_authenticated/insegnanti'
     | '/_authenticated/lezione'
@@ -205,6 +218,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedEconomicoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/importazioni': {
+      id: '/_authenticated/importazioni'
+      path: '/importazioni'
+      fullPath: '/importazioni'
+      preLoaderRoute: typeof AuthenticatedImportazioniRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/impostazioni': {
       id: '/_authenticated/impostazioni'
       path: '/impostazioni'
@@ -247,6 +267,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAllieveRoute: typeof AuthenticatedAllieveRoute
   AuthenticatedCorsiRoute: typeof AuthenticatedCorsiRoute
   AuthenticatedEconomicoRoute: typeof AuthenticatedEconomicoRoute
+  AuthenticatedImportazioniRoute: typeof AuthenticatedImportazioniRoute
   AuthenticatedImpostazioniRoute: typeof AuthenticatedImpostazioniRoute
   AuthenticatedInsegnantiRoute: typeof AuthenticatedInsegnantiRoute
   AuthenticatedLezioneRoute: typeof AuthenticatedLezioneRoute
@@ -258,6 +279,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAllieveRoute: AuthenticatedAllieveRoute,
   AuthenticatedCorsiRoute: AuthenticatedCorsiRoute,
   AuthenticatedEconomicoRoute: AuthenticatedEconomicoRoute,
+  AuthenticatedImportazioniRoute: AuthenticatedImportazioniRoute,
   AuthenticatedImpostazioniRoute: AuthenticatedImpostazioniRoute,
   AuthenticatedInsegnantiRoute: AuthenticatedInsegnantiRoute,
   AuthenticatedLezioneRoute: AuthenticatedLezioneRoute,
