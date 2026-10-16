@@ -7,9 +7,10 @@ import { useMe } from "@/lib/session";
 import { coursesQuery, studentsQuery, teachersQuery } from "@/lib/data";
 import { addDays, formatDateIt, isoWeekday, shortTime, todayRome } from "@/lib/dates";
 import { PageHeader, SectionCard, Stat } from "@/components/app/page";
+import { EconomicProjections } from "@/components/app/projections";
 
 export const Route = createFileRoute("/_authenticated/oggi")({
-  head: () => ({ meta: [{ title: "Panoramica — Materi_ali" }] }),
+  head: () => ({ meta: [{ title: "Panoramica — Materi_ali" }, { name: "description", content: "Lezioni, allieve e previsioni economiche della scuola Materi_ali." }, { property: "og:title", content: "Panoramica — Materi_ali" }, { property: "og:description", content: "Situazione della scuola e proiezioni economiche dei prossimi due mesi." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: Oggi,
 });
 
@@ -55,7 +56,8 @@ function Oggi() {
   useEffect(() => {
     if (me && !me.isOwner && todaySlots.length === 1 && mySlots.length > 0 && sessionStorage.getItem("auto-open") !== today) {
       sessionStorage.setItem("auto-open", today);
-      const s = todaySlots[0]!;
+      const s = todaySlots[0];
+      if (!s) return;
       navigate({ to: "/lezione", search: { course: s.course_id, date: today, time: shortTime(s.start_time) } });
     }
   }, [me, todaySlots, mySlots.length, today, navigate]);
@@ -75,6 +77,8 @@ function Oggi() {
           <Stat label="Registri mancanti" value={missing.length} tone={missing.length ? "alert" : "attend"} />
         </div>
       )}
+
+      {me?.isOwner && <EconomicProjections />}
 
       <SectionCard title="Lezioni di oggi" tone="attend">
         {todaySlots.length === 0 ? (
