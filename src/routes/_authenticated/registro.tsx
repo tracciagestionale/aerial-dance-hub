@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader, SectionCard } from "@/components/app/page";
+import { pageMeta } from "@/lib/metadata";
 
 export const Route = createFileRoute("/_authenticated/registro")({
-  head: () => ({ meta: [{ title: "Presenze — Materi_ali" }] }),
+  head: () => pageMeta("Presenze", "Registri delle presenze della scuola Materi_ali."),
   component: () => (
     <div>
       <PageHeader title="Presenze" />

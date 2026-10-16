@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
+import { pageMeta } from "@/lib/metadata";
 
 type Search = { course: string; date: string; time?: string | undefined };
 
@@ -20,7 +21,7 @@ export const Route = createFileRoute("/_authenticated/lezione")({
     date: typeof s["date"] === "string" ? s["date"] : todayRome(),
     time: typeof s["time"] === "string" ? s["time"] : undefined,
   }),
-  head: () => ({ meta: [{ title: "Registro lezione — Materi_ali" }] }),
+  head: () => pageMeta("Registro lezione", "Presenze e insegnanti effettive di ogni lezione Materi_ali."),
   component: Lezione,
 });
 

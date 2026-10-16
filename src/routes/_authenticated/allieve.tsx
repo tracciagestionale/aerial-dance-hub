@@ -8,6 +8,7 @@ import { useMe } from "@/lib/session";
 import { PageHeader, SectionCard, DemoBadge } from "@/components/app/page";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { pageMeta } from "@/lib/metadata";
 
 type Search = { course?: string | undefined; nuova?: boolean | undefined };
 
@@ -16,7 +17,7 @@ export const Route = createFileRoute("/_authenticated/allieve")({
     course: typeof s["course"] === "string" ? s["course"] : undefined,
     nuova: s["nuova"] === true || s["nuova"] === "true" ? true : undefined,
   }),
-  head: () => ({ meta: [{ title: "Allieve — Materi_ali" }] }),
+  head: () => pageMeta("Allieve", "Anagrafica e iscrizioni delle allieve della scuola Materi_ali."),
   component: Allieve,
 });
 

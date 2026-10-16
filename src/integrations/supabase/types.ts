@@ -521,6 +521,7 @@ export type Database = {
           amount: number
           created_at: string
           id: string
+          import_key: string | null
           method: string
           notes: string | null
           paid_on: string
@@ -533,6 +534,7 @@ export type Database = {
           amount: number
           created_at?: string
           id?: string
+          import_key?: string | null
           method?: string
           notes?: string | null
           paid_on?: string
@@ -545,6 +547,7 @@ export type Database = {
           amount?: number
           created_at?: string
           id?: string
+          import_key?: string | null
           method?: string
           notes?: string | null
           paid_on?: string
@@ -825,6 +828,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      import_data: { Args: { _kind: string; _rows: Json }; Returns: Json }
       is_owner: { Args: never; Returns: boolean }
       my_teacher_id: { Args: never; Returns: string }
       possible_duplicates: {
@@ -861,6 +865,7 @@ export type Database = {
           isSetofReturn: true
         }
       }
+      project_finance: { Args: { _month: string }; Returns: Json }
       rate_for: { Args: { _date: string; _teacher: string }; Returns: number }
       reallocate_student: { Args: { _student: string }; Returns: undefined }
       save_lesson: { Args: { payload: Json }; Returns: string }
