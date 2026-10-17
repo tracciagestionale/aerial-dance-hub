@@ -5,5 +5,5 @@
 - [ ] Lettura di un foglio Google reale: manca un indirizzo di foglio fornito dall’utente; collegamento e risposta agli errori verificati.
 
 # Registro mensile
-- [ ] Griglia con corso, mese, stati e riepiloghi per allieva.
-- [ ] Verifica delle regole e del registro con accesso autenticato.
+- [x] Griglia con corso, mese, stati e riepiloghi per allieva.
+- [x] Verifica delle regole e del registro con accesso autenticato.
