@@ -80,7 +80,7 @@ function Shell() {
         </button>
       </header>
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 pb-28 pt-4 md:px-8 md:pb-10 md:pt-8">
+      <main className="mx-auto w-full min-w-0 max-w-6xl flex-1 px-4 pb-28 pt-4 md:px-8 md:pb-10 md:pt-8">
         {noRole ? (
           <div className="mx-auto max-w-md rounded-xl bg-alert-soft p-6 text-sm">
             Il tuo account non è ancora collegato a un'insegnante. Chiedi ad Arianna di inserire la tua email nella scheda Insegnanti.
