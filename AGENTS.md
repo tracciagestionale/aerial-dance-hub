@@ -16,3 +16,4 @@
 - Imports use an owner-checked transactional database function and payment fingerprints; why: retries must not duplicate receipts or leave partial enrollments.
 - Google Sheets reads use an authenticated owner-checked server function and the linked gateway connection; why: workspace sheet credentials never enter the browser.
 - Monthly register states and per-student summaries live in src/lib/register.ts with tests; why: historical enrollments, cancelled lessons and unrecorded attendance must be counted consistently without changing saved lessons.
+- Course management updates recurring schedules and course membership separately through the RLS-protected browser client, never saved lessons; teacher contact email edits preserve account identity because signup linking and login email are separate concerns.

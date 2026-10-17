@@ -7,3 +7,8 @@
 # Registro mensile
 - [x] Griglia con corso, mese, stati e riepiloghi per allieva.
 - [x] Verifica delle regole e del registro con accesso autenticato.
+
+# Corsi e Insegnanti
+- [x] Modifica degli orari e degli abbinamenti ai corsi.
+- [x] Modifica delle email delle insegnanti.
+- [x] Verifica dei salvataggi e rilettura con accesso autenticato.
