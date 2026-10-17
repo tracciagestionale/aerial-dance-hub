@@ -9,6 +9,6 @@
 - [x] Verifica delle regole e del registro con accesso autenticato.
 
 # Corsi e Insegnanti
-- [ ] Modifica degli orari e degli abbinamenti ai corsi.
-- [ ] Modifica delle email delle insegnanti.
-- [ ] Verifica dei salvataggi e rilettura con accesso autenticato.
+- [x] Modifica degli orari e degli abbinamenti ai corsi.
+- [x] Modifica delle email delle insegnanti.
+- [x] Verifica dei salvataggi e rilettura con accesso autenticato.
