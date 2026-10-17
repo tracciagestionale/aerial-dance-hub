@@ -30,8 +30,8 @@ const registerQuery = (course: string, month: string) => queryOptions({
 
 export const Route = createFileRoute("/_authenticated/registro")({
   validateSearch: (search: Record<string, unknown>): Search => ({
-    course: typeof search.course === "string" ? search.course : "",
-    month: validMonth(search.month) ? search.month : todayRome().slice(0, 7),
+    course: typeof search["course"] === "string" ? search["course"] : "",
+    month: validMonth(search["month"]) ? search["month"] : todayRome().slice(0, 7),
   }),
   loaderDeps: ({ search }) => search,
   loader: async ({ context, deps }) => {
@@ -80,7 +80,7 @@ function Registro() {
       <div className="flex flex-wrap items-end gap-4 border-b pb-5">
         <div className="w-full sm:w-64">
           <label id="register-course-label" className="mb-2 block text-sm font-medium">Corso</label>
-          <Select value={courseId || undefined} onValueChange={(course) => update({ course })}>
+          <Select value={courseId} onValueChange={(course) => update({ course })}>
             <SelectTrigger aria-labelledby="register-course-label" className="h-11 bg-card"><SelectValue placeholder="Seleziona corso" /></SelectTrigger>
             <SelectContent>{courses.map((c) => <SelectItem key={c.id} value={c.id}>{c.name}{!c.active ? " · inattivo" : ""}</SelectItem>)}</SelectContent>
           </Select>

@@ -7,7 +7,7 @@ export type RegisterLesson = {
   id: string; lesson_date: string; start_time: string; status: string;
   attendance: { student_id: string; status: string }[];
 };
-export type RegisterColumn = { key: string; date: string; time: string; lesson?: RegisterLesson };
+export type RegisterColumn = { key: string; date: string; time: string; lesson?: RegisterLesson | undefined };
 export type CellState = "presente" | "assente" | "non_registrata" | "programmata" | "annullata" | "non_iscritta";
 
 export function enrolledOn(student: RegisterStudent, courseId: string, date: string) {
