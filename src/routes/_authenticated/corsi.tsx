@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { Clock, Pencil, Plus, Save, Loader2 } from "lucide-react";
@@ -75,7 +75,7 @@ function Corsi() {
   if (!me?.isOwner) return <p className="text-muted-foreground">La gestione dei corsi è riservata alla responsabile.</p>;
 
   return <div className="space-y-5">
-    <PageHeader tone="people" title="Corsi" subtitle={`${courses.filter((c) => c.active).length} corsi attivi`} />
+    <PageHeader tone="people" title="Corsi" subtitle={`${courses.filter((c) => c.active).length} corsi attivi`} actions={<Button variant="outline" asChild><Link to="/insegnanti">Insegnanti</Link></Button>} />
     <Input aria-label="Cerca corso" placeholder="Cerca corso" className="h-11 max-w-sm" value={filter} onChange={(e) => setFilter(e.target.value)} />
     <div className="space-y-5">{courses.filter((c) => c.name.toLowerCase().includes(filter.toLowerCase())).map((course) => <article key={course.id} aria-label={course.name} className="overflow-hidden rounded-lg border bg-card">
       <div className="flex flex-wrap items-center justify-between gap-3 border-b bg-people-soft px-4 py-4">
