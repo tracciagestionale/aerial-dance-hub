@@ -15,3 +15,4 @@
 - Economic projections use a read-only database function sharing fee_amount and rate_for; why: forecasts must not create charges or change past pay.
 - Imports use an owner-checked transactional database function and payment fingerprints; why: retries must not duplicate receipts or leave partial enrollments.
 - Google Sheets reads use an authenticated owner-checked server function and the linked gateway connection; why: workspace sheet credentials never enter the browser.
+- Monthly register states and per-student summaries live in src/lib/register.ts with tests; why: historical enrollments, cancelled lessons and unrecorded attendance must be counted consistently without changing saved lessons.
